@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function NetBanking() {
     const features = [
@@ -17,11 +17,11 @@ function NetBanking() {
             description: 'Check your past transactions, account balances, and download statements.',
             icon: '📜',
         },
-        {
-            title: 'Pay Bills',
-            description: 'Easily pay your bills online, including electricity, water, and broadband.',
-            icon: '💡',
-        },
+        // {
+        //     title: 'Pay Bills',
+        //     description: 'Easily pay your bills online, including electricity, water, and broadband.',
+        //     icon: '💡',
+        // },
         {
             title: 'Secure Transactions',
             description: 'Your online banking experience is secured with end-to-end encryption.',
@@ -34,10 +34,13 @@ function NetBanking() {
         },
     ];
 
+    const [hoveredIndex, setHoveredIndex] = useState(null); // Track hovered index
+
     const containerStyle = {
+        height:'100vh',
         padding: '2rem',
         fontFamily: "'Poppins', sans-serif",
-        backgroundColor: '#f8f9fa',
+        backgroundColor: 'rgba(25, 25, 25, 0.81)',
     };
 
     const headingStyle = {
@@ -45,7 +48,7 @@ function NetBanking() {
         fontSize: '2.5rem',
         fontWeight: 'bold',
         marginBottom: '2rem',
-        color: '#333',
+        color: 'rgba(255, 255, 255, 0.75)',
     };
 
     const gridStyle = {
@@ -55,20 +58,21 @@ function NetBanking() {
     };
 
     const cardStyle = {
-        backgroundColor: '#fff',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        padding: '1.5rem',
-        textAlign: 'center',
-        transition: 'transform 0.3s ease',
-        cursor: 'pointer',
+          // backgroundColor: '#fff',
+          borderRadius: '8px',
+          backgroundColor:'rgba(29, 29, 29, 0.63)',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          padding: '1.5rem',
+          textAlign: 'center',
+          // transition: 'transform 0.4s ease, box-shadow 0.3s ease',
+          cursor: 'pointer',
     };
 
     const cardHoverStyle = {
-        ...cardStyle,
-        transform: 'translateY(-5px)',
+        transition:'0.3s all ease',
+        scale:'1.1',
+        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
     };
-
     const iconStyle = {
         fontSize: '3rem',
         color: '#007bff',
@@ -79,12 +83,12 @@ function NetBanking() {
         fontSize: '1.5rem',
         fontWeight: 'bold',
         marginBottom: '1rem',
-        color: '#333',
+        color: 'rgba(255, 255, 255, 0.86)',
     };
 
     const descriptionStyle = {
         fontSize: '1rem',
-        color: '#666',
+        color: 'rgba(227, 227, 227, 0.63)',
     };
 
     return (
@@ -94,9 +98,12 @@ function NetBanking() {
                 {features.map((feature, index) => (
                     <div
                         key={index}
-                        style={cardStyle}
-                        onMouseEnter={(e) => (e.currentTarget.style = cardHoverStyle)}
-                        onMouseLeave={(e) => (e.currentTarget.style = cardStyle)}
+                        style={{
+                            ...cardStyle,
+                            ...(hoveredIndex === index ? cardHoverStyle : {}),
+                        }}
+                        onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                        onMouseLeave={() => setHoveredIndex(null)} // Reset hovered index
                     >
                         <div style={iconStyle}>{feature.icon}</div>
                         <div style={titleStyle}>{feature.title}</div>

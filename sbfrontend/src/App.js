@@ -12,6 +12,8 @@ import Services from './Components/Services';
 import AccountManagement from './ServicesPage/AccountManagement';
 import LoanOptions from './ServicesPage/LoanOption';
 import NetBanking from './ServicesPage/NetBanking';
+import Help from './Components/Help';
+import RegisterationPage from './CustomerComponent/RegistrationPage';
 
 function App() {
     return (
@@ -22,6 +24,7 @@ function App() {
                 <Route path = "/AboutUs" element = {<AboutUs/>}/>
                 <Route path = "/ContactUs" element = {<ContactUs/>} />
                 <Route path='/CustomerDashboard' element = { <CustomerDashboard/> }/>
+                <Route path='/RegistrationPage' element = {<RegisterationPage/>}/>
                 <Route path='/FundTransfer' element = { <FundTransfer/> }/>
                 <Route path='/AdminDashboard' element = { <AdminDashboard/> } />
                 <Route path='/ComplainMang' element = { <ComplainMang/> }/>
@@ -29,6 +32,7 @@ function App() {
                 <Route path='/AccountManagement' element = {<AccountManagement/>} />
                 <Route path='/LoanOptions' element = {<LoanOptions/>} />
                 <Route path = '/NetBanking' element ={<NetBanking/>} />
+                <Route path='/Help' element={<Help/>}/>
             </Routes>
         </Router>
     );

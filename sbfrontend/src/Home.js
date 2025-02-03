@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import homeVideo from './img/homeVideo.mp4';
 import logo from './img/Logo.png';
+import BankImage from './img/BankImage.png';
 import CustomerDashboard from './CustomerComponent/CustomerDashboard';
-import AdminLogin from './AdminPage/AdminLogin';
+import axios from 'axios';
 
 function Home() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [formData, setFormData] = useState({ username: '', email: '', password: '', phone: '' });
     const [showModal, setShowModal] = useState(false);
     const [isSignIn, setIsSignIn] = useState(true);
     const navigate = useNavigate(); // Initialize the navigation hook
+    const [errorMessage, setErrorMessage] = useState('');
    
 
     const toggleMenu = () => {
@@ -33,11 +36,7 @@ function Home() {
         toggleModal();
     };
 
-    const openSignUp = () => {
-        setIsSignIn(false);
-        toggleModal();
-    };
-
+    
       const tabStyle = {
         display: "flex",
         justifyContent: "center",
@@ -77,7 +76,7 @@ function Home() {
     };
 
     const handleContactUs = () => {
-        navigate('/ContactUs');
+        navigate('/Help');
     };
 
     const handleServices = () => {
@@ -116,13 +115,7 @@ function Home() {
   };
   
   // Existing contentStyle for overlay content on top of the video
-  const contentStyle = {
-      position: 'relative',
-      zIndex: 1,             // Keeps content above the video
-      color: 'white',
-      textAlign: 'center',
-      fontFamily: "'Poppins', sans-serif",
-  };
+  
 
     const headerStyle = {
         position: 'absolute',
@@ -220,10 +213,38 @@ function Home() {
         transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
         transition: `opacity 0.5s ${delay}s, transform 0.5s ${delay}s`,
     });
+    const imgStyle = (delay,isFirst=false)=>({
+      opacity: menuOpen ? 1 : 0,
+        transform: menuOpen ? 'translateX(0)' : 'translateX(-40%)',
+        transition: `opacity 0.5s ${delay}s, transform 0.8s ${delay}s`,
+      marginTop:'7vh',height:'40vh',width:'30vw',backgroundColor:'white',
 
-    const handleSignInSubmit = (event) => {
-      event.preventDefault(); // Prevent default form submission
-      navigate('/CustomerDashboard'); // Redirect to CustomerDashboard
+    });
+
+    const handleSignInSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post('http://localhost:8080/api/signin', {
+              email: formData.email,
+              password: formData.password
+          });
+          console.log(response.data);
+          navigate('/CustomerDashboard');
+      } catch (error) {
+          setErrorMessage('Invalid credentials. Please try again.');
+      }
+  };
+
+  const handleSignUpSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post('http://localhost:8080/api/signup', formData);
+          console.log(response.data);
+          alert('Signup successful! Please sign in.');
+          setIsSignIn(true);
+      } catch (error) {
+          setErrorMessage('Signup failed. Try again.');
+      }
   };
   const handleAdminLogin = (event) => {
     event.preventDefault(); // Prevent default form submission
@@ -261,7 +282,7 @@ function Home() {
                 <div style={closeButtonStyle} onClick={toggleMenu}>
                 &times;
                 </div>
-
+                <div style={{display:'flex', gap:'16vw',justifyContent:'center'}}>
                 <ul style={menuItemsStyle}>
                 
                 <li
@@ -273,12 +294,16 @@ function Home() {
                     >
                         SIGN IN / SIGN UP
                     </li>
-                    <li style={menuItemLineStyle(0.9)} onClick = {handleDashBoard}>DASHBOARD</li>
-                    <li style={menuItemLineStyle(0.3)} onClick = {handleServices}>SERVICES</li>
+                    <li style={menuItemLineStyle(0.2)} onClick = {handleDashBoard}>DASHBOARD</li>
+                    <li style={menuItemLineStyle(0.35)} onClick = {handleServices}>SERVICES</li>
                     <li style={menuItemLineStyle(0.5)} onClick = {handleAboutUs}>ABOUT US</li>
                     <li style={menuItemLineStyle(0.7)} onClick = {handleContactUs}>HELP</li>
                     <li style={menuItemLineStyle(0.9)} onClick = { handleAdminLogin }>Admin Login</li>
                 </ul>
+                <div style={imgStyle(0.5)}>
+                  <img src={BankImage} style={{height:'75vh',width:'55vw'}} alt='Logo'></img>
+                </div>
+                </div>
             </div>
 
             {/* Modal for Sign In/Sign Up */}
@@ -302,12 +327,7 @@ function Home() {
             >
               Sign In
             </span>
-            <span
-              style={tabButtonStyle(!isSignIn)}
-              onClick={switchToSignUp}
-            >
-              Sign Up
-            </span>
+            <span style={tabButtonStyle(!isSignIn)} onClick={switchToSignUp}>Sign Up</span>
           </div>
 
           {/* Form */}
@@ -315,16 +335,8 @@ function Home() {
             {/* Sign In Form */}
             {isSignIn && (
               <>
-                <input
-                  type="text"
-                  placeholder="Username or Email"
-                  style={inputStyle}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  style={inputStyle}
-                />
+                <input type="text" name="email" placeholder="Username or Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} style={inputStyle}/>
+                <input type="password" name="password"placeholder="Password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} style={inputStyle}/>
                 <div style={{ textAlign: "left", marginBottom: "1rem", display:'flex',justifyContent:'space-between' }}>
                 <label style={{ color: 'black' }}>
                   <input type="checkbox" /> Remember me
@@ -333,7 +345,7 @@ function Home() {
                   <a href='www.google.co.in' style={{ color: 'black' , textDecoration:'none' }}> Forget password </a>
                 </label>
                 </div>
-                
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <button type="submit" style={buttonStyle} onClick={handleSignInSubmit}>
                   Sign In
                 </button>
@@ -343,27 +355,12 @@ function Home() {
             {/* Sign Up Form */}
             {!isSignIn && (
               <>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  style={inputStyle}
-                />
-                <input
-                  type="text"
-                  placeholder="Phone No."
-                  style={inputStyle}
-                />
-                <input
-                  type="text"
-                  placeholder="Email"
-                  style={inputStyle}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  style={inputStyle}
-                />
-                <button type="submit" style={buttonStyle} onClick={handleSignInSubmit}>
+                <input type="text" name="username" placeholder="Name" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} style={inputStyle}/>
+                <input type="text" name="phone"placeholder="Phone No." value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} style={inputStyle}/>
+                <input type="text" name="email"placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} style={inputStyle}/>
+                <input type="password" name="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })}  style={inputStyle}/>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                <button type="submit" style={buttonStyle} onClick={handleSignUpSubmit}>
                   Sign Up
                 </button>
               </>

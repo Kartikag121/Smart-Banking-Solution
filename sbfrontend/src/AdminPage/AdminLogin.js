@@ -13,11 +13,12 @@ function AdminLogin() {
     padding: '2rem',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: 'rgba(25, 25, 25, 0.81)',
   };
 
   const headerStyle = {
     textAlign: 'center',
+    paddingTop:'1rem',
     marginBottom: '1.5rem',
     color: '#0056b3',
   };
@@ -56,7 +57,7 @@ function AdminLogin() {
     e.preventDefault();
 
     // Mock authentication logic
-    if (email === 'admin@smartbanking.com' && password === 'admin123') {
+    if (email === 'admin@123.com' && password === 'admin123') {
       setError('');
       //alert('Login successful!');
       // Redirect to admin dashboard (Replace with actual navigation logic)
@@ -67,6 +68,7 @@ function AdminLogin() {
   };
 
   return (
+    <div style={{height:'100vh',width:'100vw',paddingTop:'1rem', backgroundColor: 'rgba(25, 25, 25, 0.81)',}}>
     <div style={containerStyle}>
       <h1 style={headerStyle}>Admin Login</h1>
 
@@ -93,6 +95,8 @@ function AdminLogin() {
           Login
         </button>
       </form>
+    </div>
+
     </div>
   );
 }

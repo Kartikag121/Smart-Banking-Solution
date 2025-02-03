@@ -20,7 +20,7 @@ function AccountManagement() {
     const containerStyle = {
         padding: '2rem',
         fontFamily: "'Poppins', sans-serif",
-        backgroundColor: '#f8f9fa',
+        backgroundColor: 'rgba(25, 25, 25, 0.81)',
         minHeight: '100vh',
     };
 
@@ -29,11 +29,11 @@ function AccountManagement() {
         fontSize: '2.5rem',
         fontWeight: 'bold',
         marginBottom: '2rem',
-        color: '#333',
+        color: 'rgba(255, 255, 255, 0.75)',
     };
 
     const cardStyle = {
-        backgroundColor: '#fff',
+        backgroundColor:'rgba(29, 29, 29, 0.63)',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         padding: '1.5rem',
@@ -56,13 +56,13 @@ function AccountManagement() {
         <div style={containerStyle}>
             <h1 style={headingStyle}>Account Management</h1>
             <div style={cardStyle}>
-                <h2>Account Information</h2>
-                <p><strong>Account Number:</strong> {accountInfo.accountNumber}</p>
-                <p><strong>Account Type:</strong> {accountInfo.accountType}</p>
-                <p><strong>Current Balance:</strong> ${accountInfo.balance.toFixed(2)}</p>
+                <h2 style={{color: 'rgba(255, 255, 255, 0.86)'}}>Account Information</h2>
+                <p style={{color: 'rgba(255, 255, 255, 0.86)'}}><strong>Account Number:</strong> {accountInfo.accountNumber}</p>
+                <p style={{color: 'rgba(255, 255, 255, 0.86)'}}><strong>Account Type:</strong> {accountInfo.accountType}</p>
+                <p style={{color: 'rgba(255, 255, 255, 0.86)'}}><strong>Current Balance:</strong> ${accountInfo.balance.toFixed(2)}</p>
             </div>
             <div style={cardStyle}>
-                <h2>Actions</h2>
+                <h2 style={{color: 'rgba(255, 255, 255, 0.86)'}}>Actions</h2>
                 <button style={buttonStyle} onClick={handleDownloadStatement}>
                     Download Statement
                 </button>

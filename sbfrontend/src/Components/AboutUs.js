@@ -3,11 +3,13 @@ import React from 'react';
 
 function AboutUs() {
   const containerStyle = {
+    backgroundColor: 'rgba(25, 25, 25, 0.81)',
+
     fontFamily: "'Poppins', sans-serif",
     color: '#333',
     lineHeight: '1.6',
     padding: '2rem',
-    maxWidth: '1200px',
+    width: '95vw',
     margin: 'auto',
     textAlign: 'justify',
   };
@@ -15,7 +17,7 @@ function AboutUs() {
   const headerStyle = {
     textAlign: 'center',
     marginBottom: '2rem',
-    color: '#0056b3',
+    color: 'rgba(255, 255, 255, 0.75)',
   };
 
   const imageStyle = {
@@ -29,7 +31,7 @@ function AboutUs() {
   };
 
   const highlightStyle = {
-    color: '#007bff',
+    color: 'rgba(255, 255, 255, 0.75)',
     fontWeight: 'bold',
   };
   const closeButtonStyle = {
@@ -60,8 +62,8 @@ function AboutUs() {
 
       {/* Section 1 */}
       <div style={sectionStyle}>
-        <h2 style={{ color: '#0056b3' }}>Welcome to Smart Banking Solution</h2>
-        <p>
+        <h2 style={{ color: 'rgba(0, 221, 255, 0.87)' }}>Welcome to Smart Banking Solution</h2>
+        <p style={{color: 'rgba(227, 227, 227, 0.97)'}}>
           At <span style={highlightStyle}>Smart Banking Solution</span>, we are committed to redefining the way
           you bank. With cutting-edge technology and customer-first solutions, we
           empower individuals and businesses to take charge of their finances
@@ -71,8 +73,8 @@ function AboutUs() {
 
       {/* Section 2 */}
       <div style={sectionStyle}>
-        <h2 style={{ color: '#0056b3' }}>Our Vision</h2>
-        <p>
+        <h2 style={{ color: 'rgba(0, 221, 255, 0.87)' }}>Our Vision</h2>
+        <p style={{color: 'rgba(227, 227, 227, 0.97)'}}>
           Our vision is to create a seamless, inclusive, and innovative banking
           ecosystem where everyone has access to financial services that drive
           growth and prosperity.
@@ -81,27 +83,27 @@ function AboutUs() {
 
       {/* Section 3 */}
       <div style={sectionStyle}>
-        <h2 style={{ color: '#0056b3' }}>Why Choose Us?</h2>
+        <h2 style={{ color: 'rgba(0, 221, 255, 0.87)' }}>Why Choose Us?</h2>
         <ul>
-          <li>
-            <span style={highlightStyle}>Secure Banking:</span> Advanced security measures to protect your data.
+          <li style={{color:'rgba(227, 227, 227, 0.97)'}}>
+            <p style={{color: 'rgba(227, 227, 227, 0.97)'}}><span style={highlightStyle}>Secure Banking:</span> Advanced security measures to protect your data.</p>
           </li>
-          <li>
-            <span style={highlightStyle}>24/7 Support:</span> Customer assistance whenever you need it.
-          </li>
-          <li>
-            <span style={highlightStyle}>Innovation:</span> Smart solutions for payments, savings, and loans.
-          </li>
-          <li>
-            <span style={highlightStyle}>Accessibility:</span> User-friendly platforms for all devices.
-          </li>
+          <li style={{color:'rgba(227, 227, 227, 0.97)'}}>
+            <p style={{color: 'rgba(227, 227, 227, 0.97)'}}><span style={highlightStyle}>24/7 Support:</span> Customer assistance whenever you need it.
+          </p></li>
+          <li style={{color:'rgba(227, 227, 227, 0.97)'}}>
+            <p style={{color: 'rgba(227, 227, 227, 0.97)'}}><span style={highlightStyle}>Innovation:</span> Smart solutions for payments, savings, and loans.
+          </p></li>
+          <li style={{color:'rgba(227, 227, 227, 0.97)'}}>
+            <p style={{color: 'rgba(227, 227, 227, 0.97)'}}><span style={highlightStyle}>Accessibility:</span> User-friendly platforms for all devices.
+          </p></li>
         </ul>
       </div>
 
       {/* Section 4 */}
       <div style={sectionStyle}>
-        <h2 style={{ color: '#0056b3' }}>Contact Us</h2>
-        <p>
+        <h2 style={{  color: 'rgba(0, 221, 255, 0.87)'  }}>Contact Us</h2>
+        <p style={{color: 'rgba(227, 227, 227, 0.97)'}}>
           Have questions? Reach out to us at{' '}
           <a href="mailto:info@smartbanking.com" style={{ color: '#007bff' }}>
             info@smartbanking.com
@@ -113,7 +115,7 @@ function AboutUs() {
 
       {/* Footer */}
       <footer style={{ textAlign: 'center', marginTop: '2rem', color: '#777' }}>
-        <p>&copy; 2024 Smart Banking Solution. All rights reserved.</p>
+        <p style={{color: 'rgba(227, 227, 227, 0.97)'}}>&copy; 2024 Smart Banking Solution. All rights reserved.</p>
       </footer>
     </div>
   );

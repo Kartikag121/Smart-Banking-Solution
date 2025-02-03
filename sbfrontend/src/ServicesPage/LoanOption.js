@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function LoanOptions() {
     const loanOptions = [
@@ -28,10 +28,14 @@ function LoanOptions() {
         },
     ];
 
+    const [hoveredIndex, setHoveredIndex] = useState(null); // Track hovered index
+
     const containerStyle = {
-        padding: '2rem',
+        padding: '1rem 0rem',
+        height:'auto',
         fontFamily: "'Poppins', sans-serif",
-        backgroundColor: '#f8f9fa',
+        
+        backgroundColor: 'rgba(25, 25, 25, 0.81)',
     };
 
     const headingStyle = {
@@ -39,46 +43,49 @@ function LoanOptions() {
         fontSize: '2.5rem',
         fontWeight: 'bold',
         marginBottom: '2rem',
-        color: '#333',
+        color: 'rgba(255, 255, 255, 0.75)',
     };
 
     const gridStyle = {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1.5rem',
+        gap: '6rem',
+        padding:'2rem 5rem',
     };
 
     const cardStyle = {
-        backgroundColor: '#fff',
+        height:'12rem',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        backgroundColor:'rgba(29, 29, 29, 0.63)',
         padding: '1.5rem',
         textAlign: 'center',
-        transition: 'transform 0.3s ease',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Transition for hover effects
         cursor: 'pointer',
     };
 
     const cardHoverStyle = {
-        ...cardStyle,
-        transform: 'translateY(-5px)',
+        scale: '1.1',
+        transition:'all ease 0.3s',
+        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)', // Apply additional shadow on hover
     };
 
     const titleStyle = {
         fontSize: '1.5rem',
         fontWeight: 'bold',
         marginBottom: '1rem',
-        color: '#333',
+        color: 'rgba(255, 255, 255, 0.86)',
     };
 
     const descriptionStyle = {
         fontSize: '1rem',
-        color: '#666',
+        color: 'rgba(227, 227, 227, 0.63)',
     };
 
     const detailsStyle = {
         marginTop: '1rem',
         fontSize: '0.9rem',
-        color: '#444',
+        color: 'rgba(227, 227, 227, 0.63)',
     };
 
     return (
@@ -88,9 +95,12 @@ function LoanOptions() {
                 {loanOptions.map((loan, index) => (
                     <div
                         key={index}
-                        style={cardStyle}
-                        onMouseEnter={(e) => (e.currentTarget.style = cardHoverStyle)}
-                        onMouseLeave={(e) => (e.currentTarget.style = cardStyle)}
+                        style={{
+                            ...cardStyle,
+                            ...(hoveredIndex === index ? cardHoverStyle : {}),
+                        }}
+                        onMouseEnter={() => setHoveredIndex(index)} // Set hovered index
+                        onMouseLeave={() => setHoveredIndex(null)} // Reset hovered index
                     >
                         <div style={titleStyle}>{loan.title}</div>
                         <div style={descriptionStyle}>{loan.description}</div>
